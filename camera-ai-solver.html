@@ -273,14 +273,7 @@
     .context-panel .ctx-content { color: #d97706; font-size: 12px; max-height: 80px; overflow-y: auto; white-space: pre-wrap; }
     .error-box { background: #1c0a0a; border: 1px solid #7f1d1d; border-radius: 10px; padding: 14px; color: #fca5a5; font-size: 13px; line-height: 1.6; }
 
-    /* Mobile: multi-step flow */
-    @media (max-width: 767px) {
-      #setupPanel { display: none; }
-      #setupPanel.active { display: flex; }
-      .main { display: none; }
-      .main.active { display: flex; }
-    }
-    /* Desktop */
+    /* Desktop layout overrides (visibility is controlled by JS inline styles) */
     @media (min-width: 768px) {
       #welcomePanel { padding: 40px 24px; }
       #setupPanel { flex-direction: row; align-items: flex-end; flex-wrap: wrap; padding: 14px 16px; border-bottom: 1px solid #2e3147; gap: 10px; }
@@ -288,7 +281,7 @@
       #setupPanel .form-group { flex: 1; min-width: 180px; }
       #setupPanel .form-group:last-of-type { max-width: 150px; }
       #nextBtn { display: none; }
-      .main { display: flex !important; flex-direction: row; height: calc(100vh - 110px); }
+      .main { flex-direction: row; height: calc(100vh - 110px); }
       .left-col { width: 420px; flex-shrink: 0; display: flex; flex-direction: column; border-right: 1px solid #2e3147; }
       .camera-section { max-height: none; aspect-ratio: 4/3; flex-shrink: 0; }
       .right-col { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
@@ -681,45 +674,45 @@
 
   const isMobile = () => window.innerWidth < 768;
 
-  function showOnly(panels) {
-    [welcomePanel, setupPanel, infoPanel, mainArea].forEach(p => {
-      p.style.display = 'none';
-    });
-    panels.forEach(p => {
-      if (p) p.style.display = '';
-    });
+  function hideAll() {
+    welcomePanel.style.display = 'none';
+    setupPanel.style.display = 'none';
+    infoPanel.style.display = 'none';
+    mainArea.style.display = 'none';
   }
 
   function goToWelcome() {
-    showOnly([welcomePanel]);
+    hideAll();
+    welcomePanel.style.display = 'flex';
   }
 
   function goToSetup() {
-    if (isMobile()) {
-      showOnly([setupPanel]);
-    } else {
-      // On desktop: show setup + main together
-      showOnly([setupPanel, mainArea]);
+    hideAll();
+    setupPanel.style.display = 'flex';
+    if (!isMobile()) {
+      // On desktop: show camera area alongside setup panel
+      mainArea.style.display = 'flex';
     }
   }
 
   function goToInfo() {
-    showOnly([infoPanel]);
+    hideAll();
+    infoPanel.style.display = 'flex';
   }
 
   function goToCamera() {
     const apiKey = document.getElementById('apiKey').value.trim();
     if (!apiKey) { alert(T('errNoKey')); return; }
     if (isMobile()) {
-      showOnly([mainArea]);
+      hideAll();
+      mainArea.style.display = 'flex';
     }
-    // Desktop: already visible
+    // Desktop: mainArea already visible from goToSetup
   }
 
-  // Initial state: show welcome screen
-  // On desktop: hide main until after welcome
+  // Initial state: show welcome screen only
   (function init() {
-    welcomePanel.style.display = '';
+    welcomePanel.style.display = 'flex';
     setupPanel.style.display = 'none';
     infoPanel.style.display = 'none';
     mainArea.style.display = 'none';
