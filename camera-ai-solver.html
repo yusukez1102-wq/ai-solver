@@ -382,10 +382,6 @@
     statusText.textContent=T('statusStopped');nextLabel.textContent='';progressFill.style.width='0%';
     contextLocked=false;lockedContext=null;conversationHistory=[];
     lockBtn.textContent=T('lockBtn');lockBtn.classList.remove('locked');contextIndicator.style.display='none';
-    if(isMobile()){
-      mainArea.classList.remove('active');
-      setupPanel.style.display='flex';
-    }
   }
 
   function escapeHtml(str){return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');}
