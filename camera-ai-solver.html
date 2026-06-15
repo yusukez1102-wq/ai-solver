@@ -16,7 +16,8 @@
     label { display: block; font-size: 11px; color: #9ca3af; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.04em; }
     input[type="password"], select { width: 100%; background: #0f1117; border: 1px solid #2e3147; border-radius: 8px; padding: 10px 12px; color: #e8e8e8; font-size: 14px; outline: none; -webkit-appearance: none; }
     input:focus, select:focus { border-color: #4f46e5; }
-    .main { display: flex; flex-direction: column; flex: 1; }
+    .main { display: flex; flex-direction: column; flex: 1; order: 5; }
+    #setupPanel { order: 10; }
     .camera-section { position: relative; background: #000; width: 100%; aspect-ratio: 4/3; max-height: 45vh; overflow: hidden; }
     #video { width: 100%; height: 100%; object-fit: cover; display: block; }
     #canvas { display: none; }
@@ -64,7 +65,8 @@
     .guide-step .step-text strong { color: #a5b4fc; }
     .modal-btn { width: 100%; padding: 14px; background: #4f46e5; color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px; }
     @media (min-width: 768px) {
-      .main { flex-direction: row; height: calc(100vh - 57px); }
+      .main { flex-direction: row; height: calc(100vh - 110px); order: 0; }
+      #setupPanel { order: 0; }
       .left-col { width: 420px; flex-shrink: 0; display: flex; flex-direction: column; border-right: 1px solid #2e3147; }
       .camera-section { max-height: none; aspect-ratio: 4/3; flex-shrink: 0; }
       .right-col { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
