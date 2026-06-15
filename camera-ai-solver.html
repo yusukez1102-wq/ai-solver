@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AI問題解答</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif; background: #0f1117; color: #e8e8e8; min-height: 100vh; display: flex; flex-direction: column; }
+    header { background: #1a1d27; border-bottom: 1px solid #2e3147; padding: 12px 16px; display: flex; align-items: center; gap: 10px; position: sticky; top: 0; z-index: 100; }
+    header h1 { font-size: 16px; font-weight: 700; color: #fff; }
+    .badge { font-size: 10px; background: #4f46e5; color: #fff; padding: 2px 7px; border-radius: 20px; }
+    #setupPanel { background: #1a1d27; border-bottom: 1px solid #2e3147; padding: 14px 16px; }
+    .setup-row { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; }
+    .form-group { flex: 1; min-width: 200px; }
+    label { display: block; font-size: 11px; color: #9ca3af; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.04em; }
+    input[type="password"], select { width: 100%; background: #0f1117; border: 1px solid #2e3147; border-radius: 8px; padding: 10px 12px; color: #e8e8e8; font-size: 14px; outline: none; -webkit-appearance: none; }
+    input:focus, select:focus { border-color: #4f46e5; }
+    .main { display: flex; flex-direction: column; flex: 1; }
+    .camera-section { position: relative; background: #000; width: 100%; aspect-ratio: 4/3; max-height: 45vh; overflow: hidden; }
+    #video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    #canvas { display: none; }
+    .camera-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: #6b7280; font-size: 14px; }
+    .camera-placeholder .icon { font-size: 40px; }
+    .context-indicator { position: absolute; top: 10px; left: 10px; background: rgba(234,179,8,0.9); color: #000; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; display: none; }
+    .progress-bar { height: 3px; background: #1a1d27; }
+    .progress-fill { height: 100%; background: #4f46e5; width: 0%; transition: width 0.1s linear; }
+    .controls { background: #1a1d27; border-bottom: 1px solid #2e3147; padding: 10px 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+    button { padding: 10px 16px; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; touch-action: manipulation; white-space: nowrap; }
+    .btn-primary { background: #4f46e5; color: #fff; }
+    .btn-primary:disabled { background: #374151; color: #6b7280; }
+    .btn-danger { background: #dc2626; color: #fff; }
+    .btn-danger:disabled { background: #374151; color: #6b7280; }
+    .btn-now { background: #065f46; color: #6ee7b7; }
+    .btn-now:disabled { background: #374151; color: #6b7280; }
+    .btn-lock { background: #854d0e; color: #fef08a; }
+    .btn-lock.locked { background: #ca8a04; color: #000; }
+    .status-bar { background: #1a1d27; border-bottom: 1px solid #2e3147; padding: 8px 14px; font-size: 12px; color: #6b7280; display: flex; align-items: center; gap: 8px; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: #374151; flex-shrink: 0; }
+    .dot.active { background: #22c55e; animation: pulse 1.5s infinite; }
+    .dot.processing { background: #f59e0b; animation: pulse 0.7s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:0.3} }
+    .next-label { margin-left: auto; font-size: 11px; color: #4b5563; }
+    .answer-section { flex: 1; overflow-y: auto; padding: 16px; -webkit-overflow-scrolling: touch; }
+    .answer-placeholder { color: #4b5563; font-size: 14px; text-align: center; padding: 40px 20px; line-height: 1.6; }
+    .answer-box { background: #1a1d27; border: 1px solid #2e3147; border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+    .answer-box .q-label { font-size: 11px; color: #6b7280; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+    .answer-text { font-size: 20px; font-weight: 700; color: #fff; line-height: 1.6; white-space: pre-wrap; }
+    .answer-text.streaming { color: #a5b4fc; }
+    .cursor { display: inline-block; width: 2px; height: 1.2em; background: #4f46e5; animation: blink 0.7s infinite; vertical-align: text-bottom; margin-left: 2px; }
+    @keyframes blink { 0%,100%{opacity:1}50%{opacity:0} }
+    .context-panel { background: #1c1a0a; border: 1px solid #854d0e; border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; font-size: 12px; color: #fef08a; }
+    .context-panel .ctx-title { font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between; }
+    .context-panel .ctx-content { color: #d97706; font-size: 12px; max-height: 80px; overflow-y: auto; white-space: pre-wrap; }
+    .error-box { background: #1c0a0a; border: 1px solid #7f1d1d; border-radius: 10px; padding: 14px; color: #fca5a5; font-size: 13px; line-height: 1.6; }
+    @media (min-width: 768px) {
+      .main { flex-direction: row; height: calc(100vh - 57px); }
+      .left-col { width: 420px; flex-shrink: 0; display: flex; flex-direction: column; border-right: 1px solid #2e3147; }
+      .camera-section { max-height: none; aspect-ratio: 4/3; flex-shrink: 0; }
+      .right-col { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+      .answer-section { flex: 1; overflow-y: auto; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>📷 AI問題解答</h1>
+  <span class="badge">Claude Vision</span>
+</header>
+<div id="setupPanel">
+  <div class="setup-row">
+    <div class="form-group">
+      <label>Claude API キー</label>
+      <input type="password" id="apiKey" placeholder="sk-ant-api03-..." />
+    </div>
+    <div class="form-group" style="max-width:140px">
+      <label>解析間隔</label>
+      <select id="intervalSelect">
+        <option value="2000">2秒ごと</option>
+        <option value="3000" selected>3秒ごと</option>
+        <option value="5000">5秒ごと</option>
+        <option value="10000">10秒ごと</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="main">
+  <div class="left-col">
+    <div class="camera-section">
+      <video id="video" autoplay playsinline muted></video>
+      <canvas id="canvas"></canvas>
+      <div class="camera-placeholder" id="cameraPlaceholder">
+        <span class="icon">📷</span>
+        <span>カメラを起動してください</span>
+      </div>
+      <div class="context-indicator" id="contextIndicator">🔒 前提条件ロック中</div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="controls">
+      <button class="btn-primary" id="startBtn" onclick="startCamera()">📷 起動</button>
+      <button class="btn-danger" id="stopBtn" onclick="stopAll()" disabled>⏹ 停止</button>
+      <button class="btn-now" id="nowBtn" onclick="analyzeNow()" disabled>🔍 今すぐ</button>
+      <button class="btn-lock" id="lockBtn" onclick="toggleContextLock()" disabled>🔒 前提ロック</button>
+    </div>
+    <div class="status-bar">
+      <span class="dot" id="camDot"></span>
+      <span id="statusText">待機中</span>
+      <span class="next-label" id="nextLabel"></span>
+    </div>
+  </div>
+  <div class="right-col">
+    <div class="status-bar">
+      <span class="dot" id="aiDot"></span>
+      <span id="answerStatus">AI 回答</span>
+    </div>
+    <div class="answer-section" id="answerSection">
+      <div class="answer-placeholder" id="placeholder">カメラを起動して問題をかざすと<br>AIが自動で解答します</div>
+      <div id="answerArea"></div>
+    </div>
+  </div>
+</div>
+<script>
+  let stream=null,intervalId=null,progressId=null,isAnalyzing=false,progressStart=null;
+  let contextLocked=false,lockedContext=null,conversationHistory=[];
+  const video=document.getElementById('video'),canvas=document.getElementById('canvas');
+  const placeholder=document.getElementById('placeholder'),answerArea=document.getElementById('answerArea');
+  const camDot=document.getElementById('camDot'),aiDot=document.getElementById('aiDot');
+  const startBtn=document.getElementById('startBtn'),stopBtn=document.getElementById('stopBtn');
+  const nowBtn=document.getElementById('nowBtn'),lockBtn=document.getElementById('lockBtn');
+  const statusText=document.getElementById('statusText'),answerStatus=document.getElementById('answerStatus');
+  const progressFill=document.getElementById('progressFill'),nextLabel=document.getElementById('nextLabel');
+  const contextIndicator=document.getElementById('contextIndicator'),cameraPlaceholder=document.getElementById('cameraPlaceholder');
+
+  async function startCamera(){
+    const apiKey=document.getElementById('apiKey').value.trim();
+    if(!apiKey){alert('APIキーを入力してください');return;}
+    try{
+      stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280}},audio:false});
+      video.srcObject=stream;
+      cameraPlaceholder.style.display='none';
+      camDot.classList.add('active');
+      startBtn.disabled=true;stopBtn.disabled=false;nowBtn.disabled=false;lockBtn.disabled=false;
+      statusText.textContent='解析中...';
+      const interval=parseInt(document.getElementById('intervalSelect').value);
+      startAutoAnalysis(interval);
+    }catch(e){alert('カメラへのアクセスに失敗しました: '+e.message);}
+  }
+
+  function startAutoAnalysis(interval){
+    analyzeNow();
+    intervalId=setInterval(()=>{if(!isAnalyzing)analyzeNow();},interval);
+    startProgress(interval);
+  }
+
+  function startProgress(interval){
+    progressStart=Date.now();clearInterval(progressId);
+    progressId=setInterval(()=>{
+      const elapsed=Date.now()-progressStart;
+      const pct=Math.min((elapsed/interval)*100,100);
+      progressFill.style.width=pct+'%';
+      const rem=Math.max(0,Math.ceil((interval-elapsed)/1000));
+      nextLabel.textContent=isAnalyzing?'解析中...':`次の解析まで ${rem}s`;
+      if(pct>=100)progressStart=Date.now();
+    },100);
+  }
+
+  function toggleContextLock(){
+    if(contextLocked){
+      contextLocked=false;lockedContext=null;conversationHistory=[];
+      lockBtn.textContent='🔒 前提ロック';lockBtn.classList.remove('locked');
+      contextIndicator.style.display='none';
+      const panel=document.getElementById('contextPanel');if(panel)panel.remove();
+      statusText.textContent='前提条件をクリアしました';
+    }else{
+      if(!stream)return;
+      canvas.width=video.videoWidth;canvas.height=video.videoHeight;
+      canvas.getContext('2d').drawImage(video,0,0);
+      const base64=canvas.toDataURL('image/jpeg',0.8).split(',')[1];
+      lockedContext={imageBase64:base64};contextLocked=true;conversationHistory=[];
+      lockBtn.textContent='🔓 ロック解除';lockBtn.classList.add('locked');
+      contextIndicator.style.display='block';statusText.textContent='前提条件をロックしました';
+      showContextPanel();
+    }
+  }
+
+  function showContextPanel(){
+    let panel=document.getElementById('contextPanel');
+    if(!panel){
+      panel=document.createElement('div');panel.id='contextPanel';panel.className='context-panel';
+      panel.innerHTML=`<div class="ctx-title">🔒 ロックされた前提条件<span style="font-size:10px;color:#d97706;">後続の問題に引き継がれます</span></div><div class="ctx-content" id="ctxContent">前提条件画像を記憶済み</div>`;
+      answerArea.insertBefore(panel,answerArea.firstChild);
+    }
+  }
+
+  async function analyzeNow(){
+    if(isAnalyzing||!stream)return;
+    const apiKey=document.getElementById('apiKey').value.trim();if(!apiKey)return;
+    isAnalyzing=true;aiDot.classList.add('processing');aiDot.classList.remove('active');
+    answerStatus.textContent='解析中...';placeholder.style.display='none';
+    canvas.width=video.videoWidth;canvas.height=video.videoHeight;
+    canvas.getContext('2d').drawImage(video,0,0);
+    const base64=canvas.toDataURL('image/jpeg',0.8).split(',')[1];
+    const box=document.createElement('div');box.className='answer-box';
+    const now=new Date().toLocaleTimeString('ja-JP');
+    box.innerHTML=`<div class="q-label"><span class="dot processing"></span> ${now}</div><div class="answer-text streaming" id="currentAnswer"><span class="cursor"></span></div>`;
+    answerArea.querySelectorAll('.answer-box').forEach(el=>el.remove());
+    const contextPanel=document.getElementById('contextPanel');
+    if(contextPanel)answerArea.insertBefore(box,contextPanel.nextSibling);
+    else answerArea.insertBefore(box,answerArea.firstChild);
+    const answerEl=document.getElementById('currentAnswer');
+    try{
+      let messages=[];
+      if(contextLocked&&lockedContext){
+        if(conversationHistory.length===0){
+          messages=[
+            {role:'user',content:[{type:'image',source:{type:'base64',media_type:'image/jpeg',data:lockedContext.imageBase64}},{type:'text',text:'これが前提条件・大問の画像です。後続の小問に答える際にこの内容を引き継いでください。'}]},
+            {role:'assistant',content:[{type:'text',text:'前提条件を記憶しました。小問をお送りください。'}]},
+            {role:'user',content:[{type:'image',source:{type:'base64',media_type:'image/jpeg',data:base64}},{type:'text',text:'この問題に答えてください。'}]}
+          ];
+        }else{
+          messages=[...conversationHistory,{role:'user',content:[{type:'image',source:{type:'base64',media_type:'image/jpeg',data:base64}},{type:'text',text:'この問題に答えてください。'}]}];
+        }
+      }else{
+        messages=[{role:'user',content:[{type:'image',source:{type:'base64',media_type:'image/jpeg',data:base64}},{type:'text',text:'この問題に答えてください。'}]}];
+      }
+      const response=await fetch('https://api.anthropic.com/v1/messages',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+        body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1024,stream:true,
+          system:`あなたは問題の答えだけを返すAIです。\nルール：\n- 答えのみを返す。説明・解説・途中式は一切書かない\n- 複数の問がある場合は「(1) 答え　(2) 答え」のように番号で並べる\n- 答えが数値なら数値のみ、記号なら記号のみ、単語なら単語のみ\n- 問題が読み取れない場合のみ「読み取れません」と返す\n- 日本語で答える（英語の問題の解答は英語でよい）`,
+          messages:messages})
+      });
+      if(!response.ok){const err=await response.json().catch(()=>({}));throw new Error(`APIエラー ${response.status}: ${err.error?.message||response.statusText}`);}
+      const reader=response.body.getReader();const decoder=new TextDecoder();let fullText='';
+      while(true){
+        const{done,value}=await reader.read();if(done)break;
+        const chunk=decoder.decode(value,{stream:true});
+        for(const line of chunk.split('\n')){
+          if(!line.startsWith('data: '))continue;const data=line.slice(6);if(data==='[DONE]')continue;
+          try{const json=JSON.parse(data);if(json.type==='content_block_delta'&&json.delta?.type==='text_delta'){fullText+=json.delta.text||'';answerEl.innerHTML=escapeHtml(fullText)+'<span class="cursor"></span>';}}catch(e){}
+        }
+      }
+      answerEl.className='answer-text';answerEl.innerHTML=escapeHtml(fullText);
+      box.querySelector('.q-label .dot').classList.remove('processing');box.querySelector('.q-label .dot').classList.add('active');
+      if(contextLocked){
+        if(conversationHistory.length===0){
+          conversationHistory=[messages[0],messages[1],messages[2],{role:'assistant',content:[{type:'text',text:fullText}]}];
+        }else{
+          conversationHistory=[...conversationHistory,messages[messages.length-1],{role:'assistant',content:[{type:'text',text:fullText}]}];
+        }
+      }
+      aiDot.classList.remove('processing');aiDot.classList.add('active');answerStatus.textContent=`解答完了 ${now}`;
+    }catch(e){
+      let msg=e.message||'';let hint='';
+      if(msg.includes('Failed to fetch')||msg.includes('NetworkError'))hint='\n\n→ ネットワークエラー。接続を確認してください。';
+      else if(msg.includes('401'))hint='\n\n→ APIキーが無効です。';
+      const errBox=document.createElement('div');errBox.className='error-box';errBox.textContent=msg+hint;
+      box.appendChild(errBox);answerEl.remove();aiDot.classList.remove('processing');answerStatus.textContent='エラー';
+    }
+    isAnalyzing=false;
+  }
+
+  function stopAll(){
+    if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;}
+    clearInterval(intervalId);clearInterval(progressId);intervalId=progressId=null;isAnalyzing=false;
+    video.srcObject=null;cameraPlaceholder.style.display='flex';
+    camDot.classList.remove('active');aiDot.classList.remove('active','processing');
+    startBtn.disabled=false;stopBtn.disabled=nowBtn.disabled=lockBtn.disabled=true;
+    statusText.textContent='停止しました';nextLabel.textContent='';progressFill.style.width='0%';
+    contextLocked=false;lockedContext=null;conversationHistory=[];
+    lockBtn.textContent='🔒 前提ロック';lockBtn.classList.remove('locked');contextIndicator.style.display='none';
+  }
+
+  function escapeHtml(str){return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');}
+</script>
+</body>
+</html>
