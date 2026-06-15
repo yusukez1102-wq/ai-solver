@@ -16,15 +16,224 @@
     .lang-btn { padding: 4px 10px; border: 1px solid #2e3147; border-radius: 6px; background: transparent; color: #9ca3af; font-size: 12px; cursor: pointer; }
     .lang-btn.active { background: #4f46e5; color: #fff; border-color: #4f46e5; }
 
-    /* Setup Panel */
+    /* ===== Welcome Panel ===== */
+    #welcomePanel {
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      max-width: 560px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .welcome-hero {
+      text-align: center;
+      padding: 20px 0 8px;
+    }
+    .welcome-hero .hero-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, #1e1b4b, #312e81);
+      border-radius: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 24px rgba(99,102,241,0.3);
+    }
+    .welcome-hero h2 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    .welcome-hero p { font-size: 14px; color: #9ca3af; line-height: 1.6; }
+
+    .welcome-features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: #1a1d27;
+      border: 1px solid #2e3147;
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #312e81;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #a5b4fc;
+    }
+    .feature-text strong { display: block; font-size: 13px; color: #e8e8e8; margin-bottom: 3px; }
+    .feature-text span { font-size: 12px; color: #6b7280; line-height: 1.5; }
+
+    .welcome-question {
+      text-align: center;
+    }
+    .welcome-question p {
+      font-size: 15px;
+      color: #d1d5db;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .welcome-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .btn-yes {
+      padding: 16px;
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-yes:hover { background: #4338ca; }
+    .btn-no {
+      padding: 14px;
+      background: transparent;
+      color: #9ca3af;
+      border: 1px solid #2e3147;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-no:hover { background: #1a1d27; color: #d1d5db; }
+
+    /* ===== Setup Panel ===== */
     #setupPanel { padding: 24px 20px; display: flex; flex-direction: column; gap: 20px; }
+    .setup-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #6b7280;
+      font-size: 13px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      margin-bottom: 4px;
+    }
+    .setup-back:hover { color: #a5b4fc; }
     .form-group { display: flex; flex-direction: column; gap: 6px; }
     label { font-size: 11px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.04em; }
     input[type="password"], select { width: 100%; background: #1a1d27; border: 1px solid #2e3147; border-radius: 8px; padding: 12px 14px; color: #e8e8e8; font-size: 15px; outline: none; -webkit-appearance: none; }
     input:focus, select:focus { border-color: #4f46e5; }
-    #nextBtn { padding: 16px; background: #4f46e5; color: #fff; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 8px; }
+    #nextBtn { padding: 16px; background: #4f46e5; color: #fff; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-    /* Main */
+    /* ===== Info Panel ===== */
+    #infoPanel {
+      display: none;
+      flex-direction: column;
+      padding: 24px 20px;
+      gap: 0;
+      max-width: 600px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .info-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #6b7280;
+      font-size: 13px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      margin-bottom: 20px;
+    }
+    .info-back:hover { color: #a5b4fc; }
+    .info-title { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+    .info-sub { font-size: 13px; color: #6b7280; margin-bottom: 24px; line-height: 1.5; }
+    .info-steps { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+    .info-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: #1a1d27;
+      border: 1px solid #2e3147;
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #312e81;
+      color: #a5b4fc;
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .step-body strong { display: block; font-size: 13px; color: #e8e8e8; margin-bottom: 4px; }
+    .step-body span { font-size: 12px; color: #9ca3af; line-height: 1.55; }
+    .step-body a { color: #818cf8; text-decoration: none; }
+    .step-body a:hover { text-decoration: underline; }
+    .info-note {
+      background: #1c1a0a;
+      border: 1px solid #854d0e;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 12px;
+      color: #fcd34d;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .info-price-title { font-size: 14px; font-weight: 700; color: #e8e8e8; margin-bottom: 12px; }
+    .price-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 13px; }
+    .price-table th { background: #1a1d27; color: #9ca3af; font-weight: 600; padding: 10px 12px; text-align: left; border: 1px solid #2e3147; }
+    .price-table td { padding: 10px 12px; border: 1px solid #2e3147; color: #d1d5db; }
+    .price-table tr:nth-child(even) td { background: #13151f; }
+    .btn-console {
+      width: 100%;
+      padding: 16px;
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      margin-bottom: 10px;
+    }
+    .btn-console:hover { background: #4338ca; }
+    .btn-got-key {
+      width: 100%;
+      padding: 14px;
+      background: transparent;
+      color: #9ca3af;
+      border: 1px solid #2e3147;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-got-key:hover { background: #1a1d27; color: #d1d5db; }
+
+    /* ===== Main ===== */
     .main { display: flex; flex-direction: column; flex: 1; }
     .camera-section { position: relative; background: #000; width: 100%; aspect-ratio: 4/3; max-height: 45vh; overflow: hidden; }
     #video { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -64,14 +273,18 @@
     .context-panel .ctx-content { color: #d97706; font-size: 12px; max-height: 80px; overflow-y: auto; white-space: pre-wrap; }
     .error-box { background: #1c0a0a; border: 1px solid #7f1d1d; border-radius: 10px; padding: 14px; color: #fca5a5; font-size: 13px; line-height: 1.6; }
 
-    /* Mobile: 2-step flow */
+    /* Mobile: multi-step flow */
     @media (max-width: 767px) {
+      #setupPanel { display: none; }
+      #setupPanel.active { display: flex; }
       .main { display: none; }
       .main.active { display: flex; }
     }
     /* Desktop */
     @media (min-width: 768px) {
+      #welcomePanel { padding: 40px 24px; }
       #setupPanel { flex-direction: row; align-items: flex-end; flex-wrap: wrap; padding: 14px 16px; border-bottom: 1px solid #2e3147; gap: 10px; }
+      #setupPanel .setup-back { display: none; }
       #setupPanel .form-group { flex: 1; min-width: 180px; }
       #setupPanel .form-group:last-of-type { max-width: 150px; }
       #nextBtn { display: none; }
@@ -80,6 +293,7 @@
       .camera-section { max-height: none; aspect-ratio: 4/3; flex-shrink: 0; }
       .right-col { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
       .answer-section { flex: 1; overflow-y: auto; }
+      #infoPanel { max-width: 680px; padding: 32px 32px; }
     }
   </style>
 </head>
@@ -99,8 +313,70 @@
   </div>
 </header>
 
-<!-- セットアップパネル -->
+<!-- ===== Screen 0: Welcome ===== -->
+<div id="welcomePanel">
+  <div class="welcome-hero">
+    <div class="hero-icon">
+      <svg width="36" height="36" viewBox="0 0 28 28" fill="none">
+        <polygon points="16,3 7,16 13,16 12,25 21,12 15,12" fill="#1e1b4b" stroke="#6366f1" stroke-width="1.2" stroke-linejoin="round"/>
+        <polygon points="16,3 9,16 14,16 13,24 20,13 15,13" fill="#4f46e5" opacity="0.5"/>
+        <circle cx="14" cy="14" r="1.5" fill="#a5b4fc"/>
+      </svg>
+    </div>
+    <h2 data-i18n="welcomeTitle">カメラで問題を映すだけ、AIが即答</h2>
+    <p data-i18n="welcomeDesc">SnapSolveはスマートフォンのカメラをかざすだけで、数学・英語・国語などあらゆる問題をAIがリアルタイムに解答するWebアプリです。</p>
+  </div>
+
+  <div class="welcome-features">
+    <div class="feature-item">
+      <div class="feature-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="7" width="20" height="15" rx="2"/><circle cx="12" cy="14" r="4"/><path d="M9 7V5h6v2"/></svg>
+      </div>
+      <div class="feature-text">
+        <strong data-i18n="feat1Title">リアルタイム自動解答</strong>
+        <span data-i18n="feat1Desc">カメラを起動すると設定した間隔で自動解析。写真を撮る手間ゼロ。</span>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/><circle cx="12" cy="16" r="1.5" fill="currentColor" stroke="none"/></svg>
+      </div>
+      <div class="feature-text">
+        <strong data-i18n="feat2Title">前提ロック（大問・小問対応）</strong>
+        <span data-i18n="feat2Desc">大問の文脈をAIに記憶させ、小問を連続解答できる独自機能。</span>
+      </div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="feature-text">
+        <strong data-i18n="feat3Title">答えのみ表示</strong>
+        <span data-i18n="feat3Desc">解説・途中式なし。答えだけをシンプルに大きく表示します。</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="welcome-question">
+    <p data-i18n="welcomeQuestion">Claude APIキーをお持ちですか？</p>
+    <div class="welcome-btns">
+      <button class="btn-yes" onclick="goToSetup()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <span data-i18n="welcomeYes">はい、持っています</span>
+      </button>
+      <button class="btn-no" onclick="goToInfo()">
+        <span data-i18n="welcomeNo">いいえ、持っていません（取得方法を見る）</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Screen 1: Setup ===== -->
 <div id="setupPanel">
+  <button class="setup-back" onclick="goToWelcome()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="11 18 5 12 11 6"/></svg>
+    <span data-i18n="backBtn">戻る</span>
+  </button>
   <div class="form-group">
     <label data-i18n="apiLabel">Claude API キー</label>
     <input type="password" id="apiKey" data-i18n-placeholder="apiPlaceholder" placeholder="sk-ant-api03-..." />
@@ -120,7 +396,7 @@
   </button>
 </div>
 
-<!-- メイン画面 -->
+<!-- ===== Screen 2: Camera + Answer ===== -->
 <div class="main" id="mainArea">
   <div class="left-col">
     <div class="camera-section">
@@ -169,13 +445,87 @@
   </div>
 </div>
 
+<!-- ===== Screen 3: API Info ===== -->
+<div id="infoPanel">
+  <button class="info-back" onclick="goToWelcome()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="11 18 5 12 11 6"/></svg>
+    <span data-i18n="backBtn">戻る</span>
+  </button>
+
+  <div class="info-title" data-i18n="infoTitle">Claude APIキーの取得方法</div>
+  <div class="info-sub" data-i18n="infoSub">SnapSolveの利用にはAnthropicのAPIキーが必要です。無料で作成でき、使った分だけ課金される従量制です。</div>
+
+  <div class="info-steps">
+    <div class="info-step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong data-i18n="step1Title">Anthropic Consoleにアクセス</strong>
+        <span data-i18n="step1Desc"><a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> をブラウザで開きます。</span>
+      </div>
+    </div>
+    <div class="info-step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong data-i18n="step2Title">アカウントを作成</strong>
+        <span data-i18n="step2Desc">「Sign up」からメールアドレス・Google・SSOで登録。確認メールのリンクをクリックして認証します。</span>
+      </div>
+    </div>
+    <div class="info-step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong data-i18n="step3Title">支払い方法を登録</strong>
+        <span data-i18n="step3Desc">左メニュー「Settings → Billing」でクレジットカードを登録します。この手順を省略するとAPIが使えないので必ず行ってください。</span>
+      </div>
+    </div>
+    <div class="info-step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <strong data-i18n="step4Title">APIキーを作成</strong>
+        <span data-i18n="step4Desc">左メニュー「API Keys」→「Create Key」でキーを作成します。名前は「SnapSolve」などお好みで。</span>
+      </div>
+    </div>
+    <div class="info-step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <strong data-i18n="step5Title">APIキーをコピーして保存</strong>
+        <span data-i18n="step5Desc">作成直後に表示される「sk-ant-...」から始まる文字列をコピーし、メモ帳などに保存します。この画面を閉じると再表示されません。</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-note" data-i18n="infoNote">
+    ⚠️ APIキーは他人に見せないでください。第三者に知られるとあなたのアカウントで無断利用される恐れがあります。
+  </div>
+
+  <div class="info-price-title" data-i18n="pricingTitle">料金について</div>
+  <table class="price-table">
+    <thead>
+      <tr><th data-i18n="priceItem">項目</th><th data-i18n="priceAmount">料金</th></tr>
+    </thead>
+    <tbody>
+      <tr><td data-i18n="priceInput">入力（画像＋テキスト）</td><td>$3.00 / 100万トークン</td></tr>
+      <tr><td data-i18n="priceOutput">出力（AIの回答）</td><td>$15.00 / 100万トークン</td></tr>
+      <tr><td data-i18n="pricePerUse">1回あたりの目安</td><td data-i18n="pricePerUseVal">約0.5〜1円</td></tr>
+      <tr><td data-i18n="priceDaily">1日50回使用の場合</td><td data-i18n="priceDailyVal">月額 約750〜1,500円</td></tr>
+    </tbody>
+  </table>
+
+  <a class="btn-console" href="https://console.anthropic.com" target="_blank">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    <span data-i18n="consoleBtn">Anthropic Consoleを開く</span>
+  </a>
+  <button class="btn-got-key" onclick="goToSetup()">
+    <span data-i18n="gotKeyBtn">APIキーが取得できたら → 入力画面へ</span>
+  </button>
+</div>
+
 <script>
   /* ===== 多言語 ===== */
   const i18n = {
     ja: {
       apiLabel: 'Claude API キー', apiPlaceholder: 'sk-ant-api03-...',
       intervalLabel: '解析間隔', interval2: '2秒ごと', interval3: '3秒ごと', interval5: '5秒ごと', interval10: '10秒ごと',
-      nextBtn: '次へ', startBtn: '起動', stopBtn: '停止', nowBtn: '今すぐ',
+      nextBtn: '次へ', startBtn: '起動', stopBtn: '停止', nowBtn: '今すぐ', backBtn: '戻る',
       lockBtn: '前提ロック', lockBtnActive: 'ロック解除',
       lockIndicator: '前提条件ロック中',
       cameraHint: 'カメラを起動してください',
@@ -186,12 +536,37 @@
       ctxTitle: '🔒 ロックされた前提条件', ctxSub: '後続の問題に引き継がれます', ctxMemory: '前提条件画像を記憶済み',
       errNoKey: 'APIキーを入力してください', errCamera: 'カメラへのアクセスに失敗しました: ',
       errNetwork: '\n\n→ ネットワークエラー。接続を確認してください。', errKey: '\n\n→ APIキーが無効です。',
+      // Welcome
+      welcomeTitle: 'カメラで問題を映すだけ、AIが即答',
+      welcomeDesc: 'SnapSolveはスマートフォンのカメラをかざすだけで、数学・英語・国語などあらゆる問題をAIがリアルタイムに解答するWebアプリです。',
+      feat1Title: 'リアルタイム自動解答', feat1Desc: 'カメラを起動すると設定した間隔で自動解析。写真を撮る手間ゼロ。',
+      feat2Title: '前提ロック（大問・小問対応）', feat2Desc: '大問の文脈をAIに記憶させ、小問を連続解答できる独自機能。',
+      feat3Title: '答えのみ表示', feat3Desc: '解説・途中式なし。答えだけをシンプルに大きく表示します。',
+      welcomeQuestion: 'Claude APIキーをお持ちですか？',
+      welcomeYes: 'はい、持っています',
+      welcomeNo: 'いいえ、持っていません（取得方法を見る）',
+      // Info
+      infoTitle: 'Claude APIキーの取得方法',
+      infoSub: 'SnapSolveの利用にはAnthropicのAPIキーが必要です。無料で作成でき、使った分だけ課金される従量制です。',
+      step1Title: 'Anthropic Consoleにアクセス', step1Desc: 'console.anthropic.com をブラウザで開きます。',
+      step2Title: 'アカウントを作成', step2Desc: '「Sign up」からメールアドレス・Google・SSOで登録。確認メールのリンクをクリックして認証します。',
+      step3Title: '支払い方法を登録', step3Desc: '左メニュー「Settings → Billing」でクレジットカードを登録します。この手順を省略するとAPIが使えないので必ず行ってください。',
+      step4Title: 'APIキーを作成', step4Desc: '左メニュー「API Keys」→「Create Key」でキーを作成します。名前は「SnapSolve」などお好みで。',
+      step5Title: 'APIキーをコピーして保存', step5Desc: '作成直後に表示される「sk-ant-...」から始まる文字列をコピーし、メモ帳などに保存します。この画面を閉じると再表示されません。',
+      infoNote: '⚠️ APIキーは他人に見せないでください。第三者に知られるとあなたのアカウントで無断利用される恐れがあります。',
+      pricingTitle: '料金について',
+      priceItem: '項目', priceAmount: '料金',
+      priceInput: '入力（画像＋テキスト）', priceOutput: '出力（AIの回答）',
+      pricePerUse: '1回あたりの目安', pricePerUseVal: '約0.5〜1円',
+      priceDaily: '1日50回使用の場合', priceDailyVal: '月額 約750〜1,500円',
+      consoleBtn: 'Anthropic Consoleを開く',
+      gotKeyBtn: 'APIキーが取得できたら → 入力画面へ',
       systemPrompt: `あなたは問題の答えだけを返すAIです。\nルール：\n- 答えのみを返す。説明・解説・途中式は一切書かない\n- 複数の問がある場合は「(1) 答え　(2) 答え」のように番号で並べる\n- 答えが数値なら数値のみ、記号なら記号のみ、単語なら単語のみ\n- 問題が読み取れない場合のみ「読み取れません」と返す\n- 日本語で答える（英語の問題の解答は英語でよい）`
     },
     en: {
       apiLabel: 'Claude API Key', apiPlaceholder: 'sk-ant-api03-...',
       intervalLabel: 'Interval', interval2: 'Every 2s', interval3: 'Every 3s', interval5: 'Every 5s', interval10: 'Every 10s',
-      nextBtn: 'Next', startBtn: 'Start', stopBtn: 'Stop', nowBtn: 'Now',
+      nextBtn: 'Next', startBtn: 'Start', stopBtn: 'Stop', nowBtn: 'Now', backBtn: 'Back',
       lockBtn: 'Context Lock', lockBtnActive: 'Unlock',
       lockIndicator: 'Context Locked',
       cameraHint: 'Start the camera',
@@ -202,12 +577,37 @@
       ctxTitle: '🔒 Locked Context', ctxSub: 'Carried over to sub-questions', ctxMemory: 'Context image memorized',
       errNoKey: 'Please enter your API key', errCamera: 'Camera access failed: ',
       errNetwork: '\n\n→ Network error. Check your connection.', errKey: '\n\n→ Invalid API key.',
+      // Welcome
+      welcomeTitle: 'Point camera at a problem — AI answers instantly',
+      welcomeDesc: 'SnapSolve uses your smartphone camera to solve math, English, and any other problems in real time using Claude AI.',
+      feat1Title: 'Real-time auto-analysis', feat1Desc: 'Camera auto-analyzes at your chosen interval. No photo submission needed.',
+      feat2Title: 'Context Lock (Q&A chains)', feat2Desc: 'Lock main question context so Claude can answer sub-questions in sequence.',
+      feat3Title: 'Answers only', feat3Desc: 'No explanations or working. Clean, large answer display only.',
+      welcomeQuestion: 'Do you have a Claude API key?',
+      welcomeYes: 'Yes, I have one',
+      welcomeNo: "No — show me how to get one",
+      // Info
+      infoTitle: 'How to get a Claude API key',
+      infoSub: 'SnapSolve requires an Anthropic API key. Free to create — you only pay for what you use.',
+      step1Title: 'Open Anthropic Console', step1Desc: 'Go to console.anthropic.com in your browser.',
+      step2Title: 'Create an account', step2Desc: 'Click "Sign up" and register with email, Google, or SSO. Verify your email address.',
+      step3Title: 'Add a payment method', step3Desc: 'Go to Settings → Billing in the left menu and add a credit card. This step is required to use the API.',
+      step4Title: 'Create an API key', step4Desc: 'Go to "API Keys" → "Create Key". Name it anything you like (e.g. "SnapSolve").',
+      step5Title: 'Copy and save your key', step5Desc: 'Copy the "sk-ant-..." string shown after creation and save it somewhere safe. It won\'t be shown again.',
+      infoNote: '⚠️ Keep your API key private. Anyone with your key can use your account.',
+      pricingTitle: 'Pricing',
+      priceItem: 'Item', priceAmount: 'Cost',
+      priceInput: 'Input (image + text)', priceOutput: 'Output (AI answer)',
+      pricePerUse: 'Per analysis (est.)', pricePerUseVal: '~$0.003–0.006',
+      priceDaily: '50 analyses/day (est.)', priceDailyVal: '~$4.50–9/month',
+      consoleBtn: 'Open Anthropic Console',
+      gotKeyBtn: 'I have my key — go to setup',
       systemPrompt: `You are an AI that returns only the answer to problems.\nRules:\n- Return only the answer. No explanations, steps, or reasoning.\n- For multiple parts, list as "(1) answer  (2) answer"\n- Numbers only for numerical answers, symbols only for symbol answers\n- Only say "Cannot read" if the problem is unreadable\n- Answer in the language of the question`
     },
     zh: {
       apiLabel: 'Claude API 密钥', apiPlaceholder: 'sk-ant-api03-...',
       intervalLabel: '分析间隔', interval2: '每2秒', interval3: '每3秒', interval5: '每5秒', interval10: '每10秒',
-      nextBtn: '下一步', startBtn: '启动', stopBtn: '停止', nowBtn: '立即',
+      nextBtn: '下一步', startBtn: '启动', stopBtn: '停止', nowBtn: '立即', backBtn: '返回',
       lockBtn: '锁定前提', lockBtnActive: '解除锁定',
       lockIndicator: '前提条件已锁定',
       cameraHint: '请启动摄像头',
@@ -218,6 +618,31 @@
       ctxTitle: '🔒 已锁定前提条件', ctxSub: '将延续到后续小题', ctxMemory: '已记忆前提条件图像',
       errNoKey: '请输入API密钥', errCamera: '摄像头访问失败：',
       errNetwork: '\n\n→ 网络错误，请检查连接。', errKey: '\n\n→ API密钥无效。',
+      // Welcome
+      welcomeTitle: '摄像头对准题目，AI立即解答',
+      welcomeDesc: 'SnapSolve 只需用手机摄像头对准题目，AI即可实时解答数学、英语、语文等各类题目。',
+      feat1Title: '实时自动解答', feat1Desc: '启动摄像头后按设定间隔自动分析，无需拍照。',
+      feat2Title: '前提锁定（大题/小题）', feat2Desc: '锁定大题内容，让AI连续解答后续小题的独特功能。',
+      feat3Title: '仅显示答案', feat3Desc: '不显示解释或过程，只以大字体简洁呈现答案。',
+      welcomeQuestion: '您是否拥有 Claude API 密钥？',
+      welcomeYes: '是的，我已有密钥',
+      welcomeNo: '没有，查看获取方法',
+      // Info
+      infoTitle: '如何获取 Claude API 密钥',
+      infoSub: '使用 SnapSolve 需要 Anthropic 的 API 密钥。注册免费，按用量付费。',
+      step1Title: '访问 Anthropic Console', step1Desc: '在浏览器中打开 console.anthropic.com。',
+      step2Title: '创建账户', step2Desc: '点击"Sign up"，使用邮箱、Google 或 SSO 注册，并完成邮箱验证。',
+      step3Title: '添加支付方式', step3Desc: '在左侧菜单"Settings → Billing"中添加信用卡。此步骤必须完成，否则无法使用 API。',
+      step4Title: '创建 API 密钥', step4Desc: '进入"API Keys"→"Create Key"，为密钥命名（如"SnapSolve"）后创建。',
+      step5Title: '复制并保存密钥', step5Desc: '复制创建后显示的"sk-ant-..."字符串并妥善保存，关闭页面后将无法再次显示。',
+      infoNote: '⚠️ 请勿向他人泄露 API 密钥，否则他人可能使用您的账户。',
+      pricingTitle: '费用说明',
+      priceItem: '项目', priceAmount: '费用',
+      priceInput: '输入（图片＋文字）', priceOutput: '输出（AI解答）',
+      pricePerUse: '每次分析（估算）', pricePerUseVal: '约0.05〜0.1元',
+      priceDaily: '每天50次（估算）', priceDailyVal: '月约30〜60元',
+      consoleBtn: '打开 Anthropic Console',
+      gotKeyBtn: '已获取密钥 → 前往输入页面',
       systemPrompt: `你是一个只返回答案的AI。\n规则：\n- 只返回答案，不要解释、步骤或推理过程\n- 多题时格式为"(1) 答案  (2) 答案"\n- 数值题只写数值，符号题只写符号\n- 只有看不清题目时才说"无法识别"\n- 用题目所用的语言回答`
     }
   };
@@ -232,7 +657,7 @@
     const t = i18n[l];
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
-      if (t[key]) el.innerHTML = t[key];
+      if (t[key] !== undefined) el.innerHTML = t[key];
     });
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
       const key = el.getAttribute('data-i18n-placeholder');
@@ -242,10 +667,63 @@
       const key = opt.getAttribute('data-i18n');
       if (t[key]) opt.textContent = t[key];
     });
-    if (!contextLocked) lockBtn.textContent = t.lockBtn;
-    else lockBtn.textContent = t.lockBtnActive;
+    // Update lock button text (has SVG inside, don't use innerHTML on the button itself)
+    const lockSpan = lockBtn.querySelector('[data-i18n]');
+    if (lockSpan) lockSpan.textContent = contextLocked ? t.lockBtnActive : t.lockBtn;
   }
   const T = (key) => i18n[lang][key] || key;
+
+  /* ===== Screen Navigation ===== */
+  const welcomePanel = document.getElementById('welcomePanel');
+  const setupPanel = document.getElementById('setupPanel');
+  const infoPanel = document.getElementById('infoPanel');
+  const mainArea = document.getElementById('mainArea');
+
+  const isMobile = () => window.innerWidth < 768;
+
+  function showOnly(panels) {
+    [welcomePanel, setupPanel, infoPanel, mainArea].forEach(p => {
+      p.style.display = 'none';
+    });
+    panels.forEach(p => {
+      if (p) p.style.display = '';
+    });
+  }
+
+  function goToWelcome() {
+    showOnly([welcomePanel]);
+  }
+
+  function goToSetup() {
+    if (isMobile()) {
+      showOnly([setupPanel]);
+    } else {
+      // On desktop: show setup + main together
+      showOnly([setupPanel, mainArea]);
+    }
+  }
+
+  function goToInfo() {
+    showOnly([infoPanel]);
+  }
+
+  function goToCamera() {
+    const apiKey = document.getElementById('apiKey').value.trim();
+    if (!apiKey) { alert(T('errNoKey')); return; }
+    if (isMobile()) {
+      showOnly([mainArea]);
+    }
+    // Desktop: already visible
+  }
+
+  // Initial state: show welcome screen
+  // On desktop: hide main until after welcome
+  (function init() {
+    welcomePanel.style.display = '';
+    setupPanel.style.display = 'none';
+    infoPanel.style.display = 'none';
+    mainArea.style.display = 'none';
+  })();
 
   /* ===== App State ===== */
   let stream=null,intervalId=null,progressId=null,isAnalyzing=false,progressStart=null;
@@ -258,18 +736,6 @@
   const statusText=document.getElementById('statusText'),answerStatus=document.getElementById('answerStatus');
   const progressFill=document.getElementById('progressFill'),nextLabel=document.getElementById('nextLabel');
   const contextIndicator=document.getElementById('contextIndicator'),cameraPlaceholder=document.getElementById('cameraPlaceholder');
-  const mainArea=document.getElementById('mainArea'),setupPanel=document.getElementById('setupPanel');
-
-  const isMobile=()=>window.innerWidth<768;
-
-  function goToCamera() {
-    const apiKey=document.getElementById('apiKey').value.trim();
-    if(!apiKey){alert(T('errNoKey'));return;}
-    if(isMobile()){
-      setupPanel.style.display='none';
-      mainArea.classList.add('active');
-    }
-  }
 
   async function startCamera(){
     const apiKey=document.getElementById('apiKey').value.trim();
